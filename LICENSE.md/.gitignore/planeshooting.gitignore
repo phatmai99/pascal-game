@@ -1,0 +1,174 @@
+uses crt;
+var board:array[1..12,1..21] of char;
+    turn,i,j,n,x,y,temp,cont   :integer;
+    command                    :string;
+    col,row                    :char;
+    clearbl                    :boolean;
+procedure makeboard;
+begin
+board[1,1]:=' ';
+board[1,2]:=' ';
+n:=65;
+for i:=1 to 12 do
+        begin
+        if i=1 then
+                for j:=3 to 21 do
+                        begin
+                        if j mod 2 <> 0 then
+                                begin
+                                        board[1,j]:=char(n);
+                                        n:=n+1;
+                                end
+                        else
+                                board[1,j]:='|';
+                        end;
+        if i=2 then writeln;
+        if i>=3 then
+                for j:=3 to 21 do
+                        if j mod 2 <> 0 then board[i,j]:=' ' else board[i,j]:='|';
+        end;
+n:=48;
+for i:=3 to 12 do
+        begin
+        board[i,1]:=char(n);
+        n:=n+1;
+        end;
+for i:=3 to 12 do
+        board[i,2]:=' ';
+for i:=1 to 12 do
+        for j:=1 to 21 do
+                begin
+                write(board[i,j]);
+                if j=21 then writeln;
+                end;
+end;
+
+procedure clear;
+begin
+writeln('select row (0-9)');
+readln(row);
+if (ord(row)<48) or (ord(row)>57)or (length(row)<>1) then
+        repeat
+        writeln('invalid number, please enter again');
+        readln(row);
+        until (ord(row)>=48) and (ord(row)<=57) and (length(row)=1);
+writeln('select column (A-J) please write in uppercase');
+readln(col);
+if (ord(col)<65) or (ord(col)>74) or (length(col)<>1) then
+        repeat
+        writeln('invalid character, please enter again');
+        readln(col);
+        until (ord(col)>=65) and (ord(col)<=74) and (length(col)=1);
+for i:=3 to 21 do
+        begin
+        if board[1,i] <> ' ' then temp:=ord(board[1,i]);
+        if temp=ord(col) then y:=i;
+        end;
+for j:=3 to 12 do
+        begin
+        if board[j,1] <> ' ' then temp:=ord(board[j,1]);
+        if temp=ord(row) then x:=j;
+        end;
+if board[x,y]=' ' then writeln('nothing to clear')
+        else board[x,y]:=' ';
+clrscr;
+for i:=1 to 12 do
+        for j:=1 to 21 do
+                begin
+                write(board[i,j]);
+                if j=21 then writeln;
+                end;
+end;
+
+procedure draw;
+begin
+writeln('select row (0-9)');
+readln(row);
+if (ord(row)<48) or (ord(row)>57) or (length(row)<>1) then
+        repeat
+        writeln('invalid number, please enter again');
+        readln(row);
+        until (ord(row)>=48) and (ord(row)<=57) and (length(row)=1);
+writeln('select column (A-J) please write in uppercase');
+readln(col);
+if (ord(col)<65) or (ord(col)>74) or (length(col)<>1) then
+        repeat
+        writeln('invalid character, please enter again');
+        readln(col);
+        until (ord(col)>=65) and (ord(col)<=74) and (length(col)=1);
+for i:=3 to 21 do
+        begin
+        if board[1,i] <> ' ' then temp:=ord(board[1,i]);
+        if temp=ord(col) then y:=i;
+        end;
+for j:=3 to 12 do
+        begin
+        if board[j,1] <> ' ' then temp:=ord(board[j,1]);
+        if temp=ord(row) then x:=j;
+        end;
+if board[x,y]='x' then writeln('already drawn')
+        else board[x,y]:='x';
+clrscr;
+for i:=1 to 12 do
+        for j:=1 to 21 do
+                begin
+                write(board[i,j]);
+                if j=21 then writeln;
+                end;
+end;
+
+begin
+clrscr;
+makeboard;
+{repeat
+        writeln('choose command (draw/erase/end)');
+        readln(command);
+        if (command<>'draw') or (command<>'erase') then
+                repeat
+                writeln('command not found');
+                readln(command);
+                until (command='draw') or (command='erase');
+        while command='draw' do
+                begin
+                draw;
+                writeln('0 to end, 1 to continue');
+                readln(cont);
+                if cont=0 then break
+                        else
+                        if cont<>1 then
+                                repeat
+                                writeln('invalid command');
+                                readln(cont);
+                                until (cont=0) or (cont=1);
+                end;
+        while command='erase' do
+                begin
+                clear;
+                writeln('0 to end, 1 to continue');
+                readln(cont);
+                if cont=0 then break
+                        else
+                        if cont<>1 then
+                                repeat
+                                writeln('invalid command');
+                                readln(cont);
+                                until (cont=0) or (cont=1);
+                end;
+until command='end';}
+readln;
+end.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
