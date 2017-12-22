@@ -157,18 +157,3 @@ makeboard;
 until command='end';}
 readln;
 end.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
